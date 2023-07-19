@@ -1,0 +1,13 @@
+doctype html
+html
+    head 
+        title P2 Contacts 
+        link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css")
+    body
+        if !hide_login
+            if user 
+                span #{user.first_name} #{user.last_name} 
+                a(href='/logout') Logout
+            else
+                a(href='/login') Sign in
+        block content

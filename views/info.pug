@@ -1,0 +1,51 @@
+extends layout.pug
+
+mixin if_checked(checked, method)
+    if checked == 0
+        i May NOT be contacted by #{method}
+    else    
+        i May be contacted by #{method}
+
+block content 
+    h1 Contact Info
+    h2 #{c.first_name} #{c.last_name}
+    hr
+    a(href='/') Back to list 
+
+    p
+        b Phone Number: 
+        span #{c.phone_number}
+    p 
+        +if_checked(c.contact_by_phone, 'phone or text')
+
+    hr
+
+    p
+        b Email Address: 
+        span #{c.email_address}
+    p 
+        +if_checked(c.contact_by_email, 'email')
+
+    hr
+
+    p
+        b Address: 
+        if c.street
+            section #{c.street}
+        section 
+            if c.city
+                span #{c.city}, 
+            if c.state
+                span #{c.state} 
+            if c.zip
+                span #{c.zip}
+        if c.country
+            section #{c.country}
+    p 
+        +if_checked(c.contact_by_mail, 'mail')
+
+    hr
+
+    a(href='/'+c.id+'/edit') Edit Contact
+    br
+    a(href='/'+c.id+'/delete') Delete Contact

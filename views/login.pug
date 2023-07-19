@@ -1,0 +1,27 @@
+extends layout.pug 
+
+block content
+    h1 Sign in 
+
+    form(action='/login', method='post')
+        section
+            label(for='username') Username:
+            br
+            input(type='text', name = 'username')
+        section 
+            label(for='password')  Password:
+            br 
+            input(type='password', name='password')
+
+        br
+        button(type='submit') Sign in 
+        a(href='/') Nevermind
+
+        if (message)
+            p(style='color:red')
+                i #{message}
+        
+    
+    p
+        span Don't have an account yet? 
+        a(href='/signup') Sign up here!

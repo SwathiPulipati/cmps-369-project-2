@@ -1,0 +1,50 @@
+extends layout.pug 
+
+mixin if_checked(checked)
+    if checked == 0
+        input(checked=false)&attributes(attributes)
+    else    
+        input(checked=true)&attributes(attributes)
+
+block content 
+    h1 Contact List 
+    a(href='/create') Create a new contact
+    table 
+        thead
+            tr 
+                th Name 
+                th Phone 
+                th Email 
+                th Address 
+                th Contact
+        tbody 
+            each c in contacts
+                tr 
+                    td 
+                        a(href='/'+c.id) #{c.first_name} #{c.last_name}
+                    td #{c.phone_number}
+                    td #{c.email_address}
+                    td 
+                        if c.street
+                            section #{c.street}
+                        section 
+                            if c.city
+                                span #{c.city}, 
+                            if c.state
+                                span #{c.state} 
+                            if c.zip
+                                span #{c.zip}
+                        if c.country
+                            section #{c.country}
+                    td 
+                        section
+                            +if_checked(c.contact_by_phone)(id='phone'+c.id, type='checkbox', disabled)
+                            label(for="phone") Phone
+                        section
+                            +if_checked(c.contact_by_email)(id='email'+c.id, type='checkbox', disabled)
+                            label(for="email") Email
+                        section
+                            +if_checked(c.contact_by_mail)(id='mail'+c.id, type='checkbox', disabled)
+                            label(for="mail") Mail
+                        
+                        

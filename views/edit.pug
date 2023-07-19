@@ -1,0 +1,67 @@
+extends layout.pug 
+
+mixin if_checked(checked)
+    if checked == 0
+        input(checked=false)&attributes(attributes)
+    else    
+        input(checked=true)&attributes(attributes)
+
+block content
+    h1 Update Contact
+    form(action='/'+c.id+'/edit', method='post')
+        fieldset 
+            legend Basic Info 
+            section
+                label(for='first') First Name:
+                br
+                input(type='text', name = 'first', value = c.first_name)
+            section
+                label(for='last') Last Name:
+                br
+                input(type='text', name = 'last', value = c.last_name)
+            section
+                label(for='phone') Phone:
+                br
+                input(type='text', name = 'phone', value = c.phone_number)
+            section
+                label(for='email') Email:
+                br
+                input(type='text', name = 'email', value = c.email_address)
+        
+        fieldset 
+            legend Address 
+            section
+                label(for='street') Street:
+                br
+                input(type='text', name = 'street', value = c.street)
+            section
+                label(for='city') City:
+                br
+                input(type='text', name = 'city', value = c.city)
+            section
+                label(for='state') State:
+                br
+                input(type='text', name = 'state', value = c.state)
+            section
+                label(for='zip') Zip:
+                br
+                input(type='text', name = 'zip', value = c.zip)
+            section
+                label(for='country') Country:
+                br
+                input(type='text', name = 'country', value = c.country)
+        
+        fieldset 
+            legend Contact Preferences 
+            section
+                +if_checked(c.contact_by_phone)(name='by_phone', type='checkbox')
+                label(for="by_phone") Phone
+            section
+                +if_checked(c.contact_by_email)(name='by_email', type='checkbox')
+                label(for="by_email") Email
+            section
+                +if_checked(c.contact_by_mail)(name='by_mail', type='checkbox')
+                label(for="by_mail") Mail
+
+        button(type='submit') Save 
+        a(href='/'+c.id) Cancel
